@@ -1,0 +1,410 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "sai-fe",
+    "version": "1.0",
+    "summary": "API for communication between SAI front end and service backend",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/registration/social": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SocialAgentRegistration"
+                  }
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "operationId": "get-registration",
+        "description": "Get a list of all the available social agent registrations",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "cookie",
+            "name": "session",
+            "description": "Session Cookie",
+            "required": true
+          }
+        ]
+      },
+      "parameters": []
+    },
+    "/registration/social/{id}": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SocialAgentRegistration"
+                  }
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "operationId": "get-registration",
+        "description": "Get an specific social agent registration",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "cookie",
+            "name": "session",
+            "description": "Session Cookie",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "delete": {
+        "summary": "",
+        "operationId": "delete-registration-social-id",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Removes this social agent registration",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "cookie",
+            "name": "session"
+          }
+        ]
+      }
+    },
+    "/registration/app": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApplicationRegistration"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-registration-app",
+        "description": "Get a list of all the available social agent registrations",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "cookie",
+            "name": "session"
+          }
+        ]
+      }
+    },
+    "/registration/app/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationRegistration"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-registration-app-id",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "cookie",
+            "name": "session"
+          }
+        ]
+      },
+      "delete": {
+        "summary": "",
+        "operationId": "delete-registration-app-id",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "cookie",
+            "name": "session"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "title": "User",
+        "type": "object",
+        "description": "",
+        "examples": [
+          {
+            "id": 142,
+            "firstName": "Alice",
+            "lastName": "Smith",
+            "email": "alice.smith@gmail.com",
+            "dateOfBirth": "1997-10-31",
+            "emailVerified": true,
+            "signUpDate": "2019-08-24"
+          }
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the given user."
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date",
+            "example": "1997-10-31"
+          },
+          "emailVerified": {
+            "type": "boolean",
+            "description": "Set to true if the user's email has been verified."
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date",
+            "description": "The date that the user was created."
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email",
+          "emailVerified"
+        ]
+      },
+      "ApplicationRegistration": {
+        "title": "ApplicationRegistration",
+        "type": "object",
+        "examples": [],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "iri"
+          },
+          "registeredBy": {
+            "type": "string",
+            "format": "iri"
+          },
+          "registeredWith": {
+            "type": "string",
+            "format": "iri"
+          },
+          "registeredAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "registeredAgent": {
+            "type": "string",
+            "format": "iri"
+          },
+          "hasAccessGrant": {
+            "type": "string",
+            "format": "iri"
+          }
+        },
+        "required": [
+          "id",
+          "registeredBy",
+          "registeredWith",
+          "registeredAt",
+          "updatedAt",
+          "registeredAgent"
+        ]
+      },
+      "SocialAgentRegistration": {
+        "title": "SocialAgentRegistration",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "registeredWith": {
+            "type": "string"
+          },
+          "registeredAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "registeredAgent": {
+            "type": "string"
+          },
+          "reciprocalRegistration": {
+            "type": "string"
+          },
+          "hasAccessGrant": {
+            "type": "string"
+          },
+          "": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "registeredWith",
+          "registeredAt",
+          "updatedAt",
+          "registeredAgent",
+          "reciprocalRegistration",
+          "hasAccessGrant"
+        ]
+      },
+      "DataInstance": {
+        "title": "DataInstance",
+        "type": "object",
+        "description": "  ",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "iri"
+          },
+          "registeredBy": {
+            "type": "string",
+            "format": "iri"
+          },
+          "registeredWith": {
+            "type": "string",
+            "format": "iri"
+          },
+          "registeredAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "registeredShapeTree": {
+            "type": "string",
+            "format": "iri"
+          }
+        },
+        "examples": [
+          {
+            "id": "http://data.alice/data/task/1",
+            "registeredBy": "http://me.alice/id",
+            "registeredWith": "http://sai.alice/id",
+            "registeredAt": "2019-08-24T14:15:22Z",
+            "updatedAt": "2019-08-24T14:15:22Z",
+            "registeredShapeTree": "http://st.alice/task"
+          }
+        ]
+      },
+      "AccessNeedGroup": {
+        "title": "AccessNeedGroup",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "iri"
+          },
+          "hasAccessDescriptionSet": {
+            "type": "string"
+          },
+          "accessNecessity": {
+            "type": "string"
+          },
+          "accessScenario": {
+            "type": "string"
+          },
+          "authenticatesAs": {
+            "type": "string"
+          },
+          "hasAccessNeed": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {}
+  }
+}
